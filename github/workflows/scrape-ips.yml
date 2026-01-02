@@ -37,7 +37,7 @@ jobs:
       run: python pl10000/scrape_ips.py
       
     - name: Upload results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ip-data
         path: |
