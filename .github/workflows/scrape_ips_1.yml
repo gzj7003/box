@@ -54,15 +54,15 @@ jobs:
         
     - name: Verify file existence
       run: |
-        if [ -f "${{ github.workspace }}/zbhb-pl10000.txt" ]; then
-          echo "✅ 主文件 zbhb-pl10000.txt 存在"
-          echo "文件大小: $(wc -l < ${{ github.workspace }}/zbhb-pl10000.txt) 行"
+        if [ -f "${{ github.workspace }}/zbhb1-pl10000.txt" ]; then
+          echo "✅ 主文件 zbhb1-pl10000.txt 存在"
+          echo "文件大小: $(wc -l < ${{ github.workspace }}/zbhb1-pl10000.txt) 行"
         else
-          echo "❌ 警告: zbhb-pl10000.txt 不存在"
+          echo "❌ 警告: zbhb1-pl10000.txt 不存在"
           echo "检查脚本目录备份文件..."
-          if [ -f "${{ github.workspace }}/pl10000/zbhb-pl10000.txt" ]; then
+          if [ -f "${{ github.workspace }}/pl10000/zbhb1-pl10000.txt" ]; then
             echo "✅ 在脚本目录找到备份文件"
-            cp "${{ github.workspace }}/pl10000/zbhb-pl10000.txt" "${{ github.workspace }}/"
+            cp "${{ github.workspace }}/pl10000/zbhb1-pl10000.txt" "${{ github.workspace }}/"
           fi
         fi
         
@@ -74,8 +74,8 @@ jobs:
         git config --local user.name "GitHub Actions"
         
         # 添加所有生成的文件
-        git add zbhb-pl10000.txt 2>/dev/null || echo "主文件不存在"
-        git add pl10000/zbhb-pl10000.txt 2>/dev/null || echo "备份文件不存在"
+        git add zbhb1-pl10000.txt 2>/dev/null || echo "主文件不存在"
+        git add pl10000/zbhb1-pl10000.txt 2>/dev/null || echo "备份文件不存在"
         
         # 检查是否有文件需要提交
         if [ -n "$(git status --porcelain)" ]; then
@@ -91,8 +91,8 @@ jobs:
       with:
         name: ip-data
         path: |
-          ${{ github.workspace }}/zbhb-pl10000.txt
-          ${{ github.workspace }}/pl10000/zbhb-pl10000.txt
+          ${{ github.workspace }}/zbhb1-pl10000.txt
+          ${{ github.workspace }}/pl10000/zbhb1-pl10000.txt
           ${{ github.workspace }}/*.png
           ${{ github.workspace }}/*.html
         retention-days: 7  # 保留7天
