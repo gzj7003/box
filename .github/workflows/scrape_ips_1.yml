@@ -1,4 +1,4 @@
-name: Scrape IP Data
+name: Scrape_1 IP Data
 
 permissions:
   contents: write  # 授予写入权限
