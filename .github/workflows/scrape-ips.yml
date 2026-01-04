@@ -1,5 +1,9 @@
 name: Scrape IP Data
 
+# 添加权限配置
+permissions:
+  contents: write  # 授予写入权限
+  
 on:
   workflow_dispatch:  # 允许手动触发
   schedule:
@@ -11,6 +15,30 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+        # ... 前面的步骤保持不变 ...
+    
+    - name: Commit and push results
+      if: always()
+      run: |
+        cd ${{ github.workspace }}
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        
+        # 添加所有生成的文件
+        git add zbhb-pl10000.txt 2>/dev/null || echo "主文件不存在"
+        git add pl10000/zbhb-pl10000.txt 2>/dev/null || echo "备份文件不存在"
+        
+        # 检查是否有文件需要提交
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "Update: Scraped IP data [$(date +'%Y-%m-%d %H:%M')]"
+          git push
+          echo "✅ 文件已提交到仓库"
+        else
+          echo "⚠️  没有检测到文件变化"
+        fi
+    
+    # ... 后面的步骤保持不变 ...
+    
     - name: Checkout repository
       uses: actions/checkout@v3
       
