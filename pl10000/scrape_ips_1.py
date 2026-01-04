@@ -338,7 +338,7 @@ def save_results(data, output_path, workspace_root):
     
     # 同时保存一份到当前脚本目录，便于调试
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    script_dir_output = os.path.join(script_dir, "zbhb-pl10000.txt")
+    script_dir_output = os.path.join(script_dir, "zbhb1-pl10000.txt")
     with open(script_dir_output, "w", encoding="utf-8") as f:
         f.write(data)
     print(f"📝 备份文件已保存到脚本目录: {script_dir_output}")
