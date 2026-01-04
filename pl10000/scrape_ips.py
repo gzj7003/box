@@ -107,7 +107,7 @@ def main():
         page_source = driver.page_source
         
         # 第三步：点击各个电信/联通按钮
-        telecom_buttons = ["北京电信", "广东电信", "天津电信", "湖北电信", "安徽电信", "江苏电信", "淅江电信"]
+        telecom_buttons = ["北京电信", "广东电信", "陕西电信", "云南电信", "安徽电信", "江苏电信", "淅江电信"]
         all_data = ""
         
         for button_name in telecom_buttons:
