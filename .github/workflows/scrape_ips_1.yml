@@ -40,7 +40,7 @@ jobs:
         cd ${{ github.workspace }}
         echo "当前工作目录: $(pwd)"
         echo "脚本路径: ${{ github.workspace }}/pl10000/scrape_ips_1.py"
-        python pl10000/scrape_ips.py
+        python pl10000/scrape_ips_1.py
         
     - name: List all generated files
       run: |
