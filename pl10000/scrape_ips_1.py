@@ -34,25 +34,12 @@ def wait_and_click(driver, element, timeout=10):
     element_to_click.click()
     time.sleep(1)  # 等待点击响应
 
-def extract_channel_data(text, channel_name):
-    """从页面文本中提取指定频道的数据"""
-    lines = text.strip().split('\n')
-    for line in lines:
-        # 检查是否包含频道名称
-        if channel_name in line:
-            # 查找包含IP地址的部分
-            ip_match = re.search(r'(rtp://|udp://|http://)\S+', line)
-            if ip_match:
-                return line.strip()
-    return None
-
-def ensure_cctv_channels():
-    """确保包含CCTV1-15频道的基础源"""
-    # CCTV基础频道列表 - 按照标准格式
-    cctv_channels = []
+def get_base_channels():
+    """获取基础频道列表（CCTV1-15 + 卫视）"""
+    base_channels = []
     
-    # 标准CCTV1-15频道列表
-    base_cctv = [
+    # CCTV1-15频道
+    cctv_channels = [
         ("CCTV1", "CCTV-1综合"),
         ("CCTV2", "CCTV-2财经"),
         ("CCTV3", "CCTV-3综艺"),
@@ -70,51 +57,116 @@ def ensure_cctv_channels():
         ("CCTV15", "CCTV-15音乐")
     ]
     
-    # 添加CCTV频道到结果中
-    for cctv_num, cctv_name in base_cctv:
-        # 添加多种可能的名称格式以确保匹配
-        cctv_channels.append(f"{cctv_num},{cctv_name} - 待更新源")
-        cctv_channels.append(f"{cctv_name},rtp://239.76.253.{100 + int(cctv_num[4:])}:8000")
-    
-    return cctv_channels
-
-def search_for_cctv_in_content(text_content):
-    """在抓取的内容中搜索CCTV频道"""
-    found_cctv = []
-    
-    # 搜索所有可能的CCTV格式
-    cctv_patterns = [
-        r'(CCTV[-\s]?1[^\d]*)',
-        r'(CCTV[-\s]?2[^\d]*)',
-        r'(CCTV[-\s]?3[^\d]*)',
-        r'(CCTV[-\s]?4[^\d]*)',
-        r'(CCTV[-\s]?5[^\d]*)',
-        r'(CCTV[-\s]?6[^\d]*)',
-        r'(CCTV[-\s]?7[^\d]*)',
-        r'(CCTV[-\s]?8[^\d]*)',
-        r'(CCTV[-\s]?9[^\d]*)',
-        r'(CCTV[-\s]?10[^\d]*)',
-        r'(CCTV[-\s]?11[^\d]*)',
-        r'(CCTV[-\s]?12[^\d]*)',
-        r'(CCTV[-\s]?13[^\d]*)',
-        r'(CCTV[-\s]?14[^\d]*)',
-        r'(CCTV[-\s]?15[^\d]*)'
+    # 卫视频道
+    tv_stations = [
+        "湖南卫视",
+        "浙江卫视", 
+        "东方卫视",
+        "北京卫视",
+        "江苏卫视",
+        "安徽卫视",
+        "重庆卫视",
+        "四川卫视",
+        "天津卫视",
+        "兵团卫视",
+        "广东卫视",
+        "深圳卫视",
+        "山东卫视",
+        "河南卫视",
+        "湖北卫视",
+        "辽宁卫视"
     ]
     
-    for pattern in cctv_patterns:
+    return cctv_channels, tv_stations
+
+def extract_valid_channels(text):
+    """从文本中提取有效的频道数据"""
+    valid_channels = []
+    
+    # 分割行并处理
+    lines = text.strip().split('\n')
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+            
+        # 跳过注释行
+        if line.startswith('#'):
+            continue
+            
+        # 查找频道名和地址
+        if ',' in line:
+            parts = line.split(',', 1)
+            if len(parts) == 2:
+                channel_name, channel_url = parts
+                channel_name = channel_name.strip()
+                channel_url = channel_url.strip()
+                
+                # 验证URL格式
+                if re.search(r'^(rtp://|udp://|http://|https://)', channel_url):
+                    valid_channels.append(f"{channel_name},{channel_url}")
+    
+    return valid_channels
+
+def search_channels_in_content(text_content, target_channels):
+    """在内容中搜索目标频道"""
+    found_channels = []
+    
+    # 将目标频道名称转换为正则表达式模式
+    for channel in target_channels:
+        # 转义特殊字符
+        escaped_channel = re.escape(channel)
+        # 创建匹配模式，允许频道名称前后有其他字符
+        pattern = rf'.*{escaped_channel}[^,]*,(rtp://|udp://|http://|https://)\S+'
         matches = re.findall(pattern, text_content, re.IGNORECASE)
-        for match in matches:
-            # 查找匹配行的完整内容
-            lines = text_content.split('\n')
-            for line in lines:
-                if match.strip() in line:
-                    found_cctv.append(line.strip())
+        
+        if matches:
+            # 查找匹配的完整行
+            for line in text_content.split('\n'):
+                if channel.lower() in line.lower():
+                    found_channels.append(line.strip())
                     break
     
-    return found_cctv
+    return found_channels
+
+def get_suzhou_channels():
+    """获取苏州地方台频道"""
+    suzhou_channels = [
+        "苏州新闻综合,http://live-auth.51kandianshi.com/szgd/csztv1.m3u8",
+        "苏州社会经济,http://live-auth.51kandianshi.com/szgd/csztv2.m3u8",
+        "苏州文化生活,http://live-auth.51kandianshi.com/szgd/csztv3.m3u8",
+        "苏州生活资讯,http://live-auth.51kandianshi.com/szgd/csztv5.m3u8",
+        "苏州4K,http://live-auth.51kandianshi.com/szgd/csztv4k_hd.m3u8"
+    ]
+    return suzhou_channels
+
+def remove_duplicate_channels(channels):
+    """去除重复的频道（基于频道名称）"""
+    seen = set()
+    unique_channels = []
+    
+    for channel in channels:
+        # 提取频道名称
+        if ',' in channel:
+            name = channel.split(',', 1)[0].strip()
+            if name not in seen:
+                seen.add(name)
+                unique_channels.append(channel)
+    
+    return unique_channels
+
+def filter_channels_by_type(channels, channel_list):
+    """根据频道列表过滤频道"""
+    filtered = []
+    for channel in channels:
+        name = channel.split(',', 1)[0].strip()
+        if any(target in name for target in channel_list):
+            filtered.append(channel)
+    return filtered
 
 def main():
-    print("🚀 开始自动化采集组播IP数据...")
+    print("🚀 开始自动化采集直播源数据...")
     
     # 打印调试信息：当前工作目录和脚本位置
     print(f"📂 当前工作目录: {os.getcwd()}")
@@ -127,19 +179,16 @@ def main():
     
     print(f"📄 文件将保存到: {output_path}")
     
-    # 初始化结果数据，先确保包含CCTV1-15
-    all_data = ""
+    # 获取基础频道列表
+    cctv_channels, tv_stations = get_base_channels()
+    all_cctv_names = [cctv[0] for cctv in cctv_channels] + [cctv[1] for cctv in cctv_channels]
     
-    # 添加CCTV1-15基础频道到结果中
-    print("📺 确保包含CCTV1-15基础频道...")
-    cctv_base = ensure_cctv_channels()
-    for channel in cctv_base:
-        all_data += channel + "\n"
+    # 初始化收集的频道数据
+    collected_channels = []
     
     # 初始化浏览器
     chrome_options = setup_chrome_options()
     
-    # 在GitHub Actions中，Chrome可能需要特殊安装
     try:
         driver = webdriver.Chrome(options=chrome_options)
     except Exception as e:
@@ -151,8 +200,8 @@ def main():
             driver = webdriver.Chrome(options=chrome_options)
         except:
             print("❌ 无法启动Chrome，请确保已正确安装Chrome和ChromeDriver")
-            # 即使没有浏览器，也保存包含CCTV1-15的基础文件
-            save_results(all_data, output_path, workspace_root)
+            # 即使没有浏览器，也保存基础文件
+            save_results(collected_channels, output_path, workspace_root, cctv_channels, tv_stations)
             return
     
     try:
@@ -167,17 +216,16 @@ def main():
             wait_and_click(driver, (By.CSS_SELECTOR, '.icon[data-title="搜搜"]'))
         except:
             print("⚠️  找不到搜搜图标，尝试其他选择器...")
-            # 尝试其他可能的搜搜图标选择器
             try:
                 wait_and_click(driver, (By.XPATH, "//div[@class='icon' and contains(@data-title, '搜')]"))
             except:
-                print("❌ 无法找到搜搜图标，直接搜索CCTV内容")
+                print("❌ 无法找到搜搜图标，尝试在当前页面搜索")
         
         # 等待iframe加载
-        print("⏳ 等待'搜搜'页面加载...")
+        print("⏳ 等待页面加载...")
         time.sleep(5)
         
-        # 尝试切换到iframe（根据源码，iframe的id是"browser"）
+        # 尝试切换到iframe
         try:
             wait = WebDriverWait(driver, 20)
             iframe = wait.until(EC.presence_of_element_located((By.ID, "browser")))
@@ -187,29 +235,8 @@ def main():
         except:
             print("⚠️  无法切换到iframe，尝试在当前页面搜索")
         
-        # 获取当前页面的源码，用于调试
-        page_source = driver.page_source
-        
-        # 第三步：搜索CCTV相关内容
-        print("🔍 搜索CCTV相关内容...")
-        
-        # 尝试查找页面中的所有文本
-        try:
-            page_text = driver.find_element(By.TAG_NAME, "body").text
-            cctv_results = search_for_cctv_in_content(page_text)
-            
-            if cctv_results:
-                print(f"✅ 找到 {len(cctv_results)} 个CCTV相关频道")
-                all_data += "\n# ====== 抓取到的CCTV频道 ======\n"
-                for result in cctv_results:
-                    all_data += result + "\n"
-            else:
-                print("⚠️  未找到CCTV频道，使用基础频道列表")
-        except:
-            print("⚠️  无法获取页面文本，使用基础频道列表")
-        
-        # 第四步：点击各个电信/联通按钮，搜索更多频道
-        telecom_buttons = ["北京电信", "广东电信", "陕西电信", "云南电信", "安徽电信", "江苏电信", "淅江电信"]
+        # 第三步：抓取所有电信/联通页面的频道数据
+        telecom_buttons = ["北京电信", "广东电信", "陕西电信", "云南电信", "安徽电信", "江苏电信", "浙江电信"]
         
         for button_name in telecom_buttons:
             print(f"📡 正在处理: {button_name}")
@@ -227,16 +254,23 @@ def main():
                 # 获取当前页面文本内容
                 current_text = driver.find_element(By.TAG_NAME, "body").text
                 
-                # 在内容中搜索CCTV频道
-                cctv_results = search_for_cctv_in_content(current_text)
+                # 提取有效频道
+                channels_from_page = extract_valid_channels(current_text)
                 
-                if cctv_results:
-                    all_data += f"\n# ====== {button_name}中的CCTV频道 ======\n"
-                    for result in cctv_results:
-                        all_data += result + "\n"
-                    print(f"  ✅ 从 {button_name} 中找到 {len(cctv_results)} 个CCTV频道")
+                if channels_from_page:
+                    # 过滤出CCTV和卫视频道
+                    cctv_from_page = filter_channels_by_type(channels_from_page, all_cctv_names)
+                    tv_from_page = filter_channels_by_type(channels_from_page, tv_stations)
+                    
+                    if cctv_from_page:
+                        collected_channels.extend(cctv_from_page)
+                        print(f"  ✅ 找到 {len(cctv_from_page)} 个CCTV频道")
+                    
+                    if tv_from_page:
+                        collected_channels.extend(tv_from_page)
+                        print(f"  ✅ 找到 {len(tv_from_page)} 个卫视频道")
                 else:
-                    print(f"  ⚠️  未在 {button_name} 中找到CCTV频道")
+                    print(f"  ⚠️  未在 {button_name} 中找到有效频道")
                 
                 # 尝试返回
                 try:
@@ -247,36 +281,21 @@ def main():
                 time.sleep(2)
                 
             except Exception as e:
-                print(f"  ❌ 处理 {button_name} 时出错: {str(e)}")
+                print(f"  ❌ 处理 {button_name} 时出错: {e}")
                 continue
         
-        # 第五步：添加卫视频道（确保有基础卫视列表）
-        print("📡 添加卫视频道...")
-        tv_stations = [
-            "湖南卫视,rtp://239.76.253.159:8000",
-            "浙江卫视,rtp://239.76.253.158:8000", 
-            "东方卫视,rtp://239.76.253.157:8000",
-            "北京卫视,rtp://239.76.253.156:8000",
-            "江苏卫视,rtp://239.76.253.155:8000",
-            "安徽卫视,rtp://239.76.253.154:8000",
-            "重庆卫视,rtp://239.76.253.153:8000",
-            "四川卫视,rtp://239.76.253.152:8000",
-            "天津卫视,rtp://239.76.253.151:8000",
-            "兵团卫视,rtp://239.76.253.150:8000"
-        ]
+        # 第四步：添加苏州地方台
+        print("📡 添加苏州地方台...")
+        suzhou_channels = get_suzhou_channels()
         
-        all_data += "\n# ====== 卫视频道 ======\n"
-        for station in tv_stations:
-            all_data += station + "\n"
-        
-        # 保存结果
-        save_results(all_data, output_path, workspace_root)
+        # 第五步：保存结果
+        save_results(collected_channels, output_path, workspace_root, cctv_channels, tv_stations)
     
     except Exception as e:
-        print(f"❌ 程序执行出错: {str(e)}")
+        print(f"❌ 程序执行出错: {e}")
         
         # 出错时保存当前已收集的数据
-        save_results(all_data, output_path, workspace_root)
+        save_results(collected_channels, output_path, workspace_root, cctv_channels, tv_stations)
         
         # 截图和保存源码用于调试
         try:
@@ -305,17 +324,89 @@ def main():
         except:
             pass
 
-def save_results(data, output_path, workspace_root):
+def save_results(collected_channels, output_path, workspace_root, cctv_channels, tv_stations):
     """保存结果到文件"""
+    # 去重
+    unique_channels = remove_duplicate_channels(collected_channels)
+    
+    # 组织输出内容
+    output_content = "# ====== CCTV频道 ======\n"
+    
+    # 收集CCTV频道
+    cctv_found = []
+    other_channels = []
+    
+    for channel in unique_channels:
+        name = channel.split(',', 1)[0].strip()
+        # 检查是否是CCTV频道
+        is_cctv = False
+        for cctv in cctv_channels:
+            if cctv[0].lower() in name.lower() or cctv[1].lower() in name.lower():
+                cctv_found.append(channel)
+                is_cctv = True
+                break
+        
+        if not is_cctv:
+            other_channels.append(channel)
+    
+    # 添加CCTV频道
+    for i, (cctv_num, cctv_name) in enumerate(cctv_channels):
+        found = False
+        for channel in cctv_found:
+            if cctv_num.lower() in channel.lower() or cctv_name.lower() in channel.lower():
+                output_content += channel + "\n"
+                found = True
+                break
+        
+        # 如果没有找到该CCTV频道，添加占位符（但不写"待更新源"）
+        if not found:
+            output_content += f"{cctv_name},# 等待抓取有效源\n"
+    
+    # 添加卫视频道
+    output_content += "\n# ====== 卫视频道 ======\n"
+    
+    tv_found = []
+    other_channels_filtered = []
+    
+    for channel in other_channels:
+        name = channel.split(',', 1)[0].strip()
+        is_tv = any(tv.lower() in name.lower() for tv in tv_stations)
+        if is_tv:
+            tv_found.append(channel)
+        else:
+            other_channels_filtered.append(channel)
+    
+    # 按卫视列表顺序添加
+    for tv in tv_stations:
+        found = False
+        for channel in tv_found:
+            if tv.lower() in channel.lower():
+                output_content += channel + "\n"
+                found = True
+                break
+        
+        if not found:
+            output_content += f"{tv},# 等待抓取有效源\n"
+    
+    # 添加其他频道（如果有）
+    if other_channels_filtered:
+        output_content += "\n# ====== 其他频道 ======\n"
+        output_content += "\n".join(other_channels_filtered) + "\n"
+    
+    # 添加苏州地方台
+    output_content += "\n# ====== 苏州地方台 ======\n"
+    suzhou_channels = get_suzhou_channels()
+    output_content += "\n".join(suzhou_channels) + "\n"
+    
     # 确保目录存在
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     
     # 写入文件
     with open(output_path, "w", encoding="utf-8") as f:
-        f.write(data)
+        f.write(output_content)
     
     # 统计信息
-    line_count = len(data.strip().split('\n'))
+    line_count = len(output_content.strip().split('\n'))
     
     print(f"\n🎉 数据采集完成!")
     print(f"📝 总行数: {line_count} 行")
@@ -329,9 +420,9 @@ def save_results(data, output_path, workspace_root):
         print("❌ 警告: 文件似乎没有成功保存")
     
     # 显示文件预览
-    print("\n📋 文件预览（前15行）:")
+    print("\n📋 文件预览（前20行）:")
     print("-" * 50)
-    lines = data.strip().split('\n')[:15]
+    lines = output_content.strip().split('\n')[:20]
     for i, line in enumerate(lines, 1):
         print(f"{i:2}: {line}")
     print("-" * 50)
@@ -340,7 +431,7 @@ def save_results(data, output_path, workspace_root):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     script_dir_output = os.path.join(script_dir, "zbhb1-pl10000.txt")
     with open(script_dir_output, "w", encoding="utf-8") as f:
-        f.write(data)
+        f.write(output_content)
     print(f"📝 备份文件已保存到脚本目录: {script_dir_output}")
 
 if __name__ == "__main__":
