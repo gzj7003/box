@@ -16,7 +16,7 @@ def setup_chrome_options():
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--window-size=1920,1080')
     
-    # 设置下载路径（当前目录）
+    # 设置下载路径（当前工作目录）
     prefs = {
         "download.default_directory": os.getcwd(),
         "download.prompt_for_download": False,
@@ -52,9 +52,33 @@ def extract_ip_data(text):
 def main():
     print("🚀 开始自动化采集组播IP数据...")
     
+    # 打印调试信息：当前工作目录和脚本位置
+    print(f"📂 当前工作目录: {os.getcwd()}")
+    print(f"📂 脚本所在目录: {os.path.dirname(os.path.abspath(__file__))}")
+    
+    # 设置输出文件路径 - 明确保存在工作空间根目录
+    workspace_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    output_filename = "zbhb-pl10000.txt"
+    output_path = os.path.join(workspace_root, output_filename)
+    
+    print(f"📄 文件将保存到: {output_path}")
+    
     # 初始化浏览器
     chrome_options = setup_chrome_options()
-    driver = webdriver.Chrome(options=chrome_options)
+    
+    # 在GitHub Actions中，Chrome可能需要特殊安装
+    try:
+        driver = webdriver.Chrome(options=chrome_options)
+    except Exception as e:
+        print(f"⚠️  初始化Chrome失败: {e}")
+        print("尝试使用chromedriver-autoinstaller...")
+        try:
+            import chromedriver_autoinstaller
+            chromedriver_autoinstaller.install()
+            driver = webdriver.Chrome(options=chrome_options)
+        except:
+            print("❌ 无法启动Chrome，请确保已正确安装Chrome和ChromeDriver")
+            return
     
     try:
         # 第一步：打开初始页面
@@ -148,8 +172,10 @@ def main():
         
         # 第四步：保存数据到文件
         if all_data.strip():
-            output_filename = "zbhb-pl10000.txt"
-            with open(output_filename, "w", encoding="utf-8") as f:
+            # 确保目录存在
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            
+            with open(output_path, "w", encoding="utf-8") as f:
                 f.write(all_data)
             
             # 统计行数
@@ -157,7 +183,14 @@ def main():
             print(f"\n🎉 数据采集完成!")
             print(f"📊 共采集 {len(telecom_buttons)} 个地区的数据")
             print(f"📝 总行数: {line_count} 行")
-            print(f"💾 文件已保存为: {output_filename}")
+            print(f"💾 文件已保存为: {output_path}")
+            
+            # 验证文件是否真的保存了
+            if os.path.exists(output_path):
+                file_size = os.path.getsize(output_path)
+                print(f"✅ 文件确认存在，大小: {file_size} 字节")
+            else:
+                print("❌ 警告: 文件似乎没有成功保存")
             
             # 显示文件前10行预览
             print("\n📋 文件预览（前10行）:")
@@ -166,28 +199,37 @@ def main():
             for line in lines:
                 print(line)
             print("-" * 50)
+            
+            # 同时保存一份到当前脚本目录，便于调试
+            script_dir_output = os.path.join(os.path.dirname(os.path.abspath(__file__)), output_filename)
+            with open(script_dir_output, "w", encoding="utf-8") as f:
+                f.write(all_data)
+            print(f"📝 备份文件已保存到脚本目录: {script_dir_output}")
         else:
             print("⚠️  未采集到任何数据，可能是页面结构已变更")
             
             # 保存页面源码用于调试
             debug_filename = "debug_page_source.html"
-            with open(debug_filename, "w", encoding="utf-8") as f:
+            debug_path = os.path.join(workspace_root, debug_filename)
+            with open(debug_path, "w", encoding="utf-8") as f:
                 f.write(page_source)
-            print(f"🔍 已保存页面源码到 {debug_filename} 用于调试")
+            print(f"🔍 已保存页面源码到 {debug_path} 用于调试")
     
     except Exception as e:
         print(f"❌ 程序执行出错: {str(e)}")
         
         # 出错时截图
         screenshot_name = "error_screenshot.png"
-        driver.save_screenshot(screenshot_name)
-        print(f"📸 错误截图已保存为: {screenshot_name}")
+        screenshot_path = os.path.join(workspace_root, screenshot_name)
+        driver.save_screenshot(screenshot_path)
+        print(f"📸 错误截图已保存为: {screenshot_path}")
         
         # 保存当前页面源码
         debug_name = "error_page_source.html"
-        with open(debug_name, "w", encoding="utf-8") as f:
+        debug_path = os.path.join(workspace_root, debug_name)
+        with open(debug_path, "w", encoding="utf-8") as f:
             f.write(driver.page_source)
-        print(f"📄 页面源码已保存为: {debug_name}")
+        print(f"📄 页面源码已保存为: {debug_path}")
     
     finally:
         # 关闭浏览器
