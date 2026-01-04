@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install selenium webdriver-manager
+        pip install selenium webdriver-manager chromedriver-autoinstaller
         
     - name: Install Chrome
       run: |
@@ -34,13 +34,63 @@ jobs:
         sudo apt-get install -y google-chrome-stable
         
     - name: Run scraper
-      run: python ${{ github.workspace }}/pl10000/scrape_ips.py
-      
-    - name: Upload results
+      run: |
+        cd ${{ github.workspace }}
+        echo "当前工作目录: $(pwd)"
+        echo "脚本路径: ${{ github.workspace }}/pl10000/scrape_ips.py"
+        python pl10000/scrape_ips.py
+        
+    - name: List all generated files
+      run: |
+        echo "=== 搜索所有生成的文件 ==="
+        find ${{ github.workspace }} -name "*.txt" -type f
+        find ${{ github.workspace }} -name "*.png" -type f
+        find ${{ github.workspace }} -name "*.html" -type f
+        echo ""
+        echo "=== 工作空间根目录内容 ==="
+        ls -la ${{ github.workspace }}
+        
+    - name: Verify file existence
+      run: |
+        if [ -f "${{ github.workspace }}/zbhb-pl10000.txt" ]; then
+          echo "✅ 主文件 zbhb-pl10000.txt 存在"
+          echo "文件大小: $(wc -l < ${{ github.workspace }}/zbhb-pl10000.txt) 行"
+        else
+          echo "❌ 警告: zbhb-pl10000.txt 不存在"
+          echo "检查脚本目录备份文件..."
+          if [ -f "${{ github.workspace }}/pl10000/zbhb-pl10000.txt" ]; then
+            echo "✅ 在脚本目录找到备份文件"
+            cp "${{ github.workspace }}/pl10000/zbhb-pl10000.txt" "${{ github.workspace }}/"
+          fi
+        fi
+        
+    - name: Commit and push results
+      if: always()  # 即使前面的步骤失败也执行
+      run: |
+        cd ${{ github.workspace }}
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        
+        # 添加所有生成的文件
+        git add zbhb-pl10000.txt 2>/dev/null || echo "主文件不存在"
+        git add pl10000/zbhb-pl10000.txt 2>/dev/null || echo "备份文件不存在"
+        
+        # 检查是否有文件需要提交
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "Update: Scraped IP data [$(date +'%Y-%m-%d %H:%M')]"
+          git push
+          echo "✅ 文件已提交到仓库"
+        else
+          echo "⚠️  没有检测到文件变化"
+        fi
+        
+    - name: Upload results as artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ip-data
         path: |
-          zbhb-pl10000.txt
-          *.png  # 包含可能的截图
-          *.html  # 包含可能的调试文件
+          ${{ github.workspace }}/zbhb-pl10000.txt
+          ${{ github.workspace }}/pl10000/zbhb-pl10000.txt
+          ${{ github.workspace }}/*.png
+          ${{ github.workspace }}/*.html
+        retention-days: 7  # 保留7天
