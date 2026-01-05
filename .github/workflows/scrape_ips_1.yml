@@ -23,7 +23,7 @@ jobs:
       with:
         fetch-depth: 0
         # 使用 PAT token
-        token: ${{ secrets.token7003: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 }}
+        token: ${{ secrets.PAT_TOKEN }}
 
     - name: Set up Python
       uses: actions/setup-python@v4
