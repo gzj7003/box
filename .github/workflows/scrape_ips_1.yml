@@ -1,81 +1,84 @@
 name: Scrape_1 IP Data
 
-permissions:
-  contents: write  # 授予写入权限
-
 on:
-  workflow_dispatch:  # 允许手动触发
   schedule:
-    - cron: '0 2 * * *'  # 每天凌晨2点自动运行 (UTC时间)
+    - cron: '0 22 * * *'
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
 
 jobs:
-  scrape:
+  run-script:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 20
+
     steps:
-    - name: Checkout repository
+    - name: Check out the code
       uses: actions/checkout@v3
-      
+      with:
+        fetch-depth: 0
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
-        
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install selenium webdriver-manager chromedriver-autoinstaller
-        
+
     - name: Install Chrome
       run: |
         sudo apt-get update
         sudo apt-get install -y wget unzip
-        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
         echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
-        
-    - name: Run scraper
+
+    - name: Install dependencies
+      run: |
+        pip install requests selenium webdriver-manager
+
+    - name: Run scrape_ips_1.py
       run: |
         cd ${{ github.workspace }}
         echo "当前工作目录: $(pwd)"
-        echo "脚本路径: ${{ github.workspace }}/pl10000/scrape_ips_1.py"
+        echo "脚本路径: $(pwd)/pl10000/scrape_ips_1.py"
         python pl10000/scrape_ips_1.py
-        
-    - name: List all generated files
+
+    - name: Check generated files
       run: |
         echo "=== 搜索所有生成的文件 ==="
-        find ${{ github.workspace }} -name "*.txt" -type f
-        find ${{ github.workspace }} -name "*.png" -type f
-        find ${{ github.workspace }} -name "*.html" -type f
-        echo ""
-        echo "=== 工作空间根目录内容 ==="
-        ls -la ${{ github.workspace }}
+        find . -name "*.txt" -type f
         
-    - name: Verify file existence
+        echo "=== 工作空间根目录内容 ==="
+        ls -la
+
+    - name: Commit generated files
       run: |
-        if [ -f "${{ github.workspace }}/zbhb1-pl10000.txt" ]; then
-          echo "✅ 主文件 zbhb1-pl10000.txt 存在"
-          echo "文件大小: $(wc -l < ${{ github.workspace }}/zbhb1-pl10000.txt) 行"
-        else
-          echo "❌ 警告: zbhb1-pl10000.txt 不存在"
-          echo "检查脚本目录备份文件..."
-          if [ -f "${{ github.workspace }}/pl10000/zbhb1-pl10000.txt" ]; then
-            echo "✅ 在脚本目录找到备份文件"
-            cp "${{ github.workspace }}/pl10000/zbhb1-pl10000.txt" "${{ github.workspace }}/"
-          fi
+        cd ${{ github.workspace }}
+        
+        # 首先检查生成了哪些文件
+        if [ -f "zbhb-pl10000.txt" ]; then
+          echo "✅ 主文件 zbhb-pl10000.txt 存在"
+          echo "文件大小: $(wc -l < zbhb-pl10000.txt) 行"
+          
+          # 如果这是正确的直播源文件，重命名为zby.txt
+          cp zbhb-pl10000.txt zby.txt
+          echo "已将 zbhb-pl10000.txt 复制为 zby.txt"
         fi
         
-    - name: Commit and push results
-      if: always()
+        if [ -f "zbhb1-pl10000.txt" ]; then
+          echo "✅ 备份文件 zbhb1-pl10000.txt 存在"
+          echo "文件大小: $(wc -l < zbhb1-pl10000.txt) 行"
+        fi
+
+    - name: Push changes
       run: |
         cd ${{ github.workspace }}
         git config --local user.email "actions@github.com"
         git config --local user.name "GitHub Actions"
         
         # 添加所有生成的文件
-        git add zbhb1-pl10000.txt 2>/dev/null || echo "主文件不存在"
-        git add pl10000/zbhb1-pl10000.txt 2>/dev/null || echo "备份文件不存在"
+        git add zby.txt zbhb-pl10000.txt zbhb1-pl10000.txt pl10000/zbhb1-pl10000.txt 2>/dev/null || true
         
         # 检查是否有文件需要提交
         if [ -n "$(git status --porcelain)" ]; then
@@ -85,14 +88,15 @@ jobs:
         else
           echo "⚠️  没有检测到文件变化"
         fi
+
+    - name: Final summary
+      run: |
+        echo "=== 工作流执行完成 ==="
+        echo "生成的文件:"
+        ls -la *.txt 2>/dev/null || echo "没有找到txt文件"
         
-    - name: Upload results as artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ip-data
-        path: |
-          ${{ github.workspace }}/zbhb1-pl10000.txt
-          ${{ github.workspace }}/pl10000/zbhb1-pl10000.txt
-          ${{ github.workspace }}/*.png
-          ${{ github.workspace }}/*.html
-        retention-days: 7  # 保留7天
+        if [ -f "zby.txt" ]; then
+          echo "✅ zby.txt 已创建"
+          echo "文件内容预览:"
+          head -5 zby.txt
+        fi
