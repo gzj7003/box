@@ -1,0 +1,102 @@
+name: Run scrape_ips_1.py script automatically
+
+on:
+  schedule:
+    - cron: '0 22 * * *'
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Install dependencies
+      run: |
+        pip install requests selenium webdriver-manager
+
+    - name: Run scrape_ips_1.py
+      run: |
+        cd ${{ github.workspace }}
+        echo "当前工作目录: $(pwd)"
+        echo "脚本路径: $(pwd)/pl10000/scrape_ips_1.py"
+        python pl10000/scrape_ips_1.py
+
+    - name: Check generated files
+      run: |
+        echo "=== 搜索所有生成的文件 ==="
+        find . -name "*.txt" -type f
+        
+        echo "=== 工作空间根目录内容 ==="
+        ls -la
+
+    - name: Commit generated files
+      run: |
+        cd ${{ github.workspace }}
+        
+        # 首先检查生成了哪些文件
+        if [ -f "zbhb-pl10000.txt" ]; then
+          echo "✅ 主文件 zbhb-pl10000.txt 存在"
+          echo "文件大小: $(wc -l < zbhb-pl10000.txt) 行"
+          
+          # 如果这是正确的直播源文件，重命名为zby.txt
+          cp zbhb-pl10000.txt zby.txt
+          echo "已将 zbhb-pl10000.txt 复制为 zby.txt"
+        fi
+        
+        if [ -f "zbhb1-pl10000.txt" ]; then
+          echo "✅ 备份文件 zbhb1-pl10000.txt 存在"
+          echo "文件大小: $(wc -l < zbhb1-pl10000.txt) 行"
+        fi
+
+    - name: Push changes
+      run: |
+        cd ${{ github.workspace }}
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        
+        # 添加所有生成的文件
+        git add zby.txt zbhb-pl10000.txt zbhb1-pl10000.txt pl10000/zbhb1-pl10000.txt 2>/dev/null || true
+        
+        # 检查是否有文件需要提交
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "Update: Scraped IP data [$(date +'%Y-%m-%d %H:%M')]"
+          git push
+          echo "✅ 文件已提交到仓库"
+        else
+          echo "⚠️  没有检测到文件变化"
+        fi
+
+    - name: Final summary
+      run: |
+        echo "=== 工作流执行完成 ==="
+        echo "生成的文件:"
+        ls -la *.txt 2>/dev/null || echo "没有找到txt文件"
+        
+        if [ -f "zby.txt" ]; then
+          echo "✅ zby.txt 已创建"
+          echo "文件内容预览:"
+          head -5 zby.txt
+        fi
