@@ -34,23 +34,78 @@ def wait_and_click(driver, element, timeout=10):
     element_to_click.click()
     time.sleep(1)  # 等待点击响应
 
-def extract_ip_data(text):
-    """从页面文本中提取IP地址数据"""
+def extract_and_filter_channels(text):
+    """从页面文本中提取并过滤频道数据"""
     lines = text.strip().split('\n')
-    ip_lines = []
+    filtered_channels = {}
+    
+    # 定义需要保留的频道模式
+    cctv_patterns = [
+        r'CCTV-?1[^0-9]', r'CCTV-?2[^0-9]', r'CCTV-?3[^0-9]', r'CCTV-?4[^0-9]',
+        r'CCTV-?5[^0-9]', r'CCTV-?6[^0-9]', r'CCTV-?7[^0-9]', r'CCTV-?8[^0-9]',
+        r'CCTV-?9[^0-9]', r'CCTV-?10[^0-9]', r'CCTV-?11[^0-9]', r'CCTV-?12[^0-9]',
+        r'CCTV-?13[^0-9]', r'CCTV-?14[^0-9]', r'CCTV-?15[^0-9]',
+        r'央视-?1[^0-9]', r'央视-?2[^0-9]', r'央视-?3[^0-9]', r'央视-?4[^0-9]',
+        r'央视-?5[^0-9]', r'央视-?6[^0-9]', r'央视-?7[^0-9]', r'央视-?8[^0-9]',
+        r'央视-?9[^0-9]', r'央视-?10[^0-9]', r'央视-?11[^0-9]', r'央视-?12[^0-9]',
+        r'央视-?13[^0-9]', r'央视-?14[^0-9]', r'央视-?15[^0-9]'
+    ]
+    
+    # 卫视模式
+    satellite_patterns = [
+        r'卫视', r'湖南卫视', r'浙江卫视', r'江苏卫视', r'东方卫视', r'北京卫视',
+        r'安徽卫视', r'山东卫视', r'天津卫视', r'重庆卫视', r'四川卫视',
+        r'广东卫视', r'深圳卫视', r'黑龙江卫视', r'辽宁卫视', r'河南卫视',
+        r'湖北卫视', r'福建卫视', r'江西卫视', r'广西卫视', r'山西卫视',
+        r'陕西卫视', r'贵州卫视', r'云南卫视', r'甘肃卫视', r'青海卫视',
+        r'宁夏卫视', r'新疆卫视', r'西藏卫视', r'内蒙古卫视', r'河北卫视',
+        r'吉林卫视', r'海南卫视'
+    ]
     
     for line in lines:
-        # 提取包含IP地址的行（格式如：xxx.xxx.xxx.xxx:xxxx）
-        if re.match(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d+', line.strip()):
-            ip_lines.append(line.strip())
-        # 或者包含"rtp://"或"udp://"的行
-        elif line.strip().startswith(('rtp://', 'udp://')):
-            ip_lines.append(line.strip())
+        line = line.strip()
+        
+        # 查找频道名称和URL
+        if ',' in line and ('http://' in line or 'udp://' in line or 'rtp://' in line):
+            parts = line.split(',', 1)
+            if len(parts) == 2:
+                channel_name, channel_url = parts
+                
+                # 检查是否为CCTV频道
+                is_cctv = any(re.search(pattern, channel_name, re.IGNORECASE) for pattern in cctv_patterns)
+                
+                # 检查是否为卫视频道
+                is_satellite = any(re.search(pattern, channel_name, re.IGNORECASE) for pattern in satellite_patterns)
+                
+                # 只保留CCTV1-15和卫视
+                if is_cctv or is_satellite:
+                    # 标准化CCTV名称
+                    if 'CCTV' in channel_name.upper() or '央视' in channel_name:
+                        # 提取CCTV编号
+                        match = re.search(r'CCTV[- ]?(\d+)', channel_name.upper())
+                        if match:
+                            cctv_num = int(match.group(1))
+                            if 1 <= cctv_num <= 15:
+                                filtered_channels[f"CCTV{cctv_num}"] = channel_url
+                    else:
+                        # 卫视频道
+                        filtered_channels[channel_name] = channel_url
     
-    return '\n'.join(ip_lines)
+    return filtered_channels
+
+def add_suzhou_local_channels():
+    """添加苏州地方台"""
+    suzhou_channels = {
+        "苏州新闻综合": "http://live-auth.51kandianshi.com/szgd/csztv1.m3u8",
+        "苏州社会经济": "http://live-auth.51kandianshi.com/szgd/csztv2.m3u8",
+        "苏州文化生活": "http://live-auth.51kandianshi.com/szgd/csztv3.m3u8",
+        "苏州生活资讯": "http://live-auth.51kandianshi.com/szgd/csztv5.m3u8",
+        "苏州生活资讯2": "http://180.108.166.124:4022/rtp/239.49.8.116:8000"
+    }
+    return suzhou_channels
 
 def main():
-    print("🚀 开始自动化采集组播IP数据...")
+    print("🚀 开始自动化采集直播源数据...")
     
     # 打印调试信息：当前工作目录和脚本位置
     print(f"📂 当前工作目录: {os.getcwd()}")
@@ -108,7 +163,7 @@ def main():
         
         # 第三步：点击各个电信/联通按钮
         telecom_buttons = ["北京电信", "广东电信", "陕西电信", "云南电信", "安徽电信", "江苏电信", "淅江电信"]
-        all_data = ""
+        all_channels = {}  # 使用字典避免重复
         
         for button_name in telecom_buttons:
             print(f"📡 正在处理: {button_name}")
@@ -126,21 +181,17 @@ def main():
                 # 获取当前页面文本内容
                 current_text = driver.find_element(By.TAG_NAME, "body").text
                 
-                # 提取IP数据
-                ip_data = extract_ip_data(current_text)
+                # 提取并过滤频道数据
+                filtered = extract_and_filter_channels(current_text)
                 
-                if ip_data:
-                    all_data += f"# ====== {button_name} ======\n"
-                    all_data += ip_data + "\n\n"
-                    print(f"  ✅ 成功获取 {button_name} 数据")
+                if filtered:
+                    # 合并到总字典
+                    all_channels.update(filtered)
+                    print(f"  ✅ 从 {button_name} 获取了 {len(filtered)} 个有效频道")
                 else:
-                    # 如果没有提取到IP数据，保存原始文本的前500字符用于调试
-                    all_data += f"# ====== {button_name} ======\n"
-                    all_data += current_text[:500] + "\n\n"
-                    print(f"  ⚠️  未提取到IP格式数据，保存原始文本")
+                    print(f"  ⚠️  未从 {button_name} 提取到有效频道")
                 
                 # 点击后可能需要返回或等待页面稳定
-                # 尝试点击返回按钮或重新加载页面
                 try:
                     # 尝试查找返回按钮
                     back_btn = driver.find_elements(By.XPATH, "//a[contains(text(),'返回') or contains(text(),'Back')]")
@@ -157,64 +208,91 @@ def main():
                 
             except Exception as e:
                 print(f"  ❌ 处理 {button_name} 时出错: {str(e)}")
-                # 尝试其他选择器
-                try:
-                    # 尝试通过XPath查找包含按钮文本的元素
-                    xpath_btn = driver.find_element(
-                        By.XPATH, f"//*[contains(text(), '{button_name}')]"
-                    )
-                    xpath_btn.click()
-                    time.sleep(3)
-                    print(f"  ✅ 通过XPath找到并点击了 {button_name}")
-                except:
-                    print(f"  ❌ 无法找到 {button_name} 按钮")
-                    continue
+                continue
         
-        # 第四步：保存数据到文件
-        if all_data.strip():
-            # 确保目录存在
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            
-            with open(output_path, "w", encoding="utf-8") as f:
-                f.write(all_data)
-            
-            # 统计行数
-            line_count = len(all_data.strip().split('\n'))
-            print(f"\n🎉 数据采集完成!")
-            print(f"📊 共采集 {len(telecom_buttons)} 个地区的数据")
-            print(f"📝 总行数: {line_count} 行")
-            print(f"💾 文件已保存为: {output_path}")
-            
-            # 验证文件是否真的保存了
-            if os.path.exists(output_path):
-                file_size = os.path.getsize(output_path)
-                print(f"✅ 文件确认存在，大小: {file_size} 字节")
+        # 第四步：添加苏州地方台
+        print("📡 添加苏州地方台...")
+        suzhou_channels = add_suzhou_local_channels()
+        all_channels.update(suzhou_channels)
+        print(f"  ✅ 添加了 {len(suzhou_channels)} 个苏州地方台")
+        
+        # 第五步：整理和排序频道
+        print("📊 整理频道数据...")
+        
+        # 分离CCTV和卫视
+        cctv_channels = {}
+        satellite_channels = {}
+        suzhou_local_channels = {}
+        
+        for name, url in all_channels.items():
+            # 检查是否为苏州地方台
+            if '苏州' in name:
+                suzhou_local_channels[name] = url
+            # 检查是否为CCTV
+            elif 'CCTV' in name.upper():
+                cctv_channels[name] = url
             else:
-                print("❌ 警告: 文件似乎没有成功保存")
+                satellite_channels[name] = url
+        
+        # 对CCTV按数字排序
+        sorted_cctv = sorted(
+            cctv_channels.items(),
+            key=lambda x: int(re.search(r'(\d+)', x[0].upper()).group(1)) if re.search(r'(\d+)', x[0].upper()) else 0
+        )
+        
+        # 对卫视按拼音排序（简单按名称排序）
+        sorted_satellite = sorted(satellite_channels.items(), key=lambda x: x[0])
+        
+        # 对苏州地方台排序
+        sorted_suzhou = sorted(suzhou_local_channels.items(), key=lambda x: x[0])
+        
+        # 第六步：保存数据到文件
+        with open(output_path, "w", encoding="utf-8") as f:
+            # 写入CCTV频道
+            f.write("# ====== CCTV频道 ======\n")
+            for name, url in sorted_cctv:
+                f.write(f"{name},{url}\n")
             
-            # 显示文件前10行预览
-            print("\n📋 文件预览（前10行）:")
-            print("-" * 50)
-            lines = all_data.strip().split('\n')[:10]
-            for line in lines:
-                print(line)
-            print("-" * 50)
+            f.write("\n# ====== 卫视频道 ======\n")
+            for name, url in sorted_satellite:
+                f.write(f"{name},{url}\n")
             
-            # 同时保存一份到当前脚本目录，便于调试
-            script_dir_output = os.path.join(os.path.dirname(os.path.abspath(__file__)), output_filename)
-            with open(script_dir_output, "w", encoding="utf-8") as f:
-                f.write(all_data)
-            print(f"📝 备份文件已保存到脚本目录: {script_dir_output}")
+            f.write("\n# ====== 苏州地方台 ======\n")
+            for name, url in sorted_suzhou:
+                f.write(f"{name},{url}\n")
+        
+        # 统计信息
+        total_channels = len(sorted_cctv) + len(sorted_satellite) + len(sorted_suzhou)
+        print(f"\n🎉 数据采集完成!")
+        print(f"📊 频道统计:")
+        print(f"  CCTV频道: {len(sorted_cctv)} 个")
+        print(f"  卫视频道: {len(sorted_satellite)} 个")
+        print(f"  苏州地方台: {len(sorted_suzhou)} 个")
+        print(f"  总计: {total_channels} 个频道")
+        print(f"💾 文件已保存为: {output_path}")
+        
+        # 验证文件是否真的保存了
+        if os.path.exists(output_path):
+            file_size = os.path.getsize(output_path)
+            print(f"✅ 文件确认存在，大小: {file_size} 字节")
         else:
-            print("⚠️  未采集到任何数据，可能是页面结构已变更")
-            
-            # 保存页面源码用于调试
-            debug_filename = "debug_page_source.html"
-            debug_path = os.path.join(workspace_root, debug_filename)
-            with open(debug_path, "w", encoding="utf-8") as f:
-                f.write(page_source)
-            print(f"🔍 已保存页面源码到 {debug_path} 用于调试")
-    
+            print("❌ 警告: 文件似乎没有成功保存")
+        
+        # 显示文件预览
+        print("\n📋 文件预览（前20行）:")
+        print("-" * 50)
+        with open(output_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()[:20]
+            for i, line in enumerate(lines, 1):
+                print(f"{i:2}: {line.rstrip()}")
+        print("-" * 50)
+        
+        # 同时保存一份到当前脚本目录，便于调试
+        script_dir_output = os.path.join(os.path.dirname(os.path.abspath(__file__)), output_filename)
+        with open(script_dir_output, "w", encoding="utf-8") as f:
+            f.write(open(output_path, "r", encoding="utf-8").read())
+        print(f"📝 备份文件已保存到脚本目录: {script_dir_output}")
+        
     except Exception as e:
         print(f"❌ 程序执行出错: {str(e)}")
         
