@@ -6,7 +6,7 @@ permissions:
 on:
   workflow_dispatch:  # 允许手动触发
   schedule:
-    - cron: '0 6 * * *'  # 每天凌晨2点自动运行 (UTC时间)
+    - cron: '0 8,12,16,20,0,4 * * *'  # 每天凌晨4,8,12,16,20,0,4点自动运行 (UTC时间)
 
 jobs:
   scrape:
