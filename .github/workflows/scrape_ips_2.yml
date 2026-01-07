@@ -3,7 +3,9 @@ name: Run scrape_ips_1.py script automatically
 on:
   schedule:
     - cron: '0 22 * * *'
-    - cron: '0 7 * * *'
+    - cron: '0 4 * * *'
+    - cron: '0 10 * * *'
+    - cron: '0 16 * * *'
   workflow_dispatch:
   push:
     branches: [ main, master ]
