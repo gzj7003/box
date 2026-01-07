@@ -162,7 +162,7 @@ def main():
     
     # 设置输出文件路径 - 明确保存在工作空间根目录
     workspace_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    output_filename = "zbhb-pl10000.txt"
+    output_filename = "zbhb1-pl10000.txt"
     output_path = os.path.join(workspace_root, output_filename)
     
     print(f"📄 文件将保存到: {output_path}")
