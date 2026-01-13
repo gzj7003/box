@@ -1,4 +1,4 @@
-name: Run scrape_ips_1.py script automatically
+name: Run scrape_ips_2.py script automatically
 
 on:
   schedule:
