@@ -1,135 +1,149 @@
-#EXTM3U
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="http://epg.51zmt.top:8000/tb1/CCTV/CCTV1.png" group-title="央视",CCTV-1综合
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226559/index.m3u8
-#EXTINF:-1 tvg-id="2" tvg-name="CCTV2" tvg-logo="https://live.fanmingming.com/tv/CCTV2.png" group-title="央视",CCTV-2财经
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226540/index.m3u8
-#EXTINF:-1 tvg-id="3" tvg-name="CCTV3" tvg-logo="https://live.fanmingming.com/tv/CCTV3.png" group-title="央视",CCTV-3综艺
-http://[2409:8087:1a01:df::4077]:80/PLTV/88888888/224/3221225799/index.m3u8
-#EXTINF:-1 tvg-id="4" tvg-name="CCTV4" tvg-logo="https://live.fanmingming.com/tv/CCTV4.png" group-title="央视",CCTV-4中文国际
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226428/index.m3u8
-#EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://live.fanmingming.com/tv/CCTV5.png" group-title="央视",CCTV-5体育
-http://[2409:8087:1a01:df::4077]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226019/index.m3u8
-#EXTINF:-1 tvg-id="6" tvg-name="CCTV5+" tvg-logo="http://epg.51zmt.top:8000/tb1/CCTV/CCTV5+.png" group-title="央视",CCTV-5+体育
-http://[2409:8087:1a01:df::4077]:80/PLTV/88888888/224/3221225507/index.m3u8
-#EXTINF:-1 tvg-id="7" tvg-name="CCTV6" tvg-logo="https://live.fanmingming.com/tv/CCTV6.png" group-title="央视", CCTV-6电影
-http://[2409:8087:1a01:df::4077]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226010/index.m3u8
-#EXTINF:-1 tvg-id="8" tvg-name="CCTV7" tvg-logo="https://live.fanmingming.com/tv/CCTV7.png" group-title="央视",CCTV-7国防军事
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225733/index.m3u8
-#EXTINF:-1 tvg-id="9" tvg-name="CCTV8" tvg-logo="https://live.fanmingming.com/tv/CCTV8.png" group-title="央视",CCTV-8电视剧
-http://[2409:8087:1a01:df::4077]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226008/index.m3u8
-#EXTINF:-1 tvg-id="10" tvg-name="CCTV9" tvg-logo="https://live.fanmingming.com/tv/CCTV9.png" group-title="央视",CCTV-9纪录
-http://[2409:8087:1a01:df::4077]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225734/index.m3u8
-#EXTINF:-1 tvg-id="11" tvg-name="CCTV10" tvg-logo="https://live.fanmingming.com/tv/CCTV10.png" group-title="央视",CCTV-10科教
-http://[2409:8087:1a01:df::4077]:80/PLTV/88888888/224/3221225677/index.m3u8
-#EXTINF:-1 tvg-id="12" tvg-name="CCTV11" tvg-logo="https://live.fanmingming.com/tv/CCTV11.png" group-title="央视",CCTV-11戏曲
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226565/index.m3u8
-#EXTINF:-1 tvg-id="13" tvg-name="CCTV12" tvg-logo="https://live.fanmingming.com/tv/CCTV12.png" group-title="央视",CCTV-12社会与法
-http://[2409:8087:1a01:df::4077]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225731/index.m3u8
-#EXTINF:-1 tvg-id="14" tvg-name="CCTV13" tvg-logo="https://live.fanmingming.com/tv/CCTV13.png" group-title="央视",CCTV-13新闻
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226537/index.m3u8
-#EXTINF:-1 tvg-id="15" tvg-name="CCTV14" tvg-logo="https://live.fanmingming.com/tv/CCTV14.png" group-title="央视",CCTV-14少儿
-http://[2409:8087:1a01:df::4077]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225732/index.m3u8
-#EXTINF:-1 tvg-id="16" tvg-name="CCTV15" tvg-logo="https://live.fanmingming.com/tv/CCTV15.png" group-title="央视",CCTV-15音乐
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226476/index.m3u8
-#EXTINF:-1 tvg-id="7249" tvg-name="CCTV16" tvg-logo="https://live.fanmingming.com/tv/CCTV16.png" group-title="央视",CCTV-16奥林匹克
-http://[2409:8087:1a01:df::4077]:80/PLTV/88888888/224/3221225893/index.m3u8
-#EXTINF:-1 tvg-id="17" tvg-name="CCTV17" tvg-logo="https://live.fanmingming.com/tv/CCTV17.png" group-title="央视",CCTV-17农村农业
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225765/index.m3u8
-#EXTINF:-1 tvg-id="106" tvg-name="CCTV4K" tvg-logo="https://live.fanmingming.com/tv/CCTV4K.png" group-title="央视",CCTV-4K
-http://27.222.3.214/liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8
-#EXTINF:-1 tvg-id="17" tvg-name="苏州新闻综合" tvg-logo="http://www.csztv.cn/images/ds_off_01.png" group-title="苏州地方台",苏州新闻综合
-http://tylive.kan0512.com/norecord/norecord_csztv1.m3u8
-#EXTINF:-1 tvg-id="18" tvg-name="苏州社会经济" tvg-logo="http://www.csztv.cn/images/ds_off_02.png" group-title="苏州地方台",苏州社会经济
-http://tylive.kan0512.com/norecord/norecord_csztv2.m3u8
-#EXTINF:-1 tvg-id="19" tvg-name="苏州文化生活" tvg-logo="http://www.csztv.cn/images/ds_off_03.png" group-title="苏州地方台",苏州文化生活
-http://tylive.kan0512.com/norecord/norecord_csztv3.m3u8
-#EXTINF:-1 tvg-id="20" tvg-name="苏州生活资讯" tvg-logo="http://www.csztv.cn/images/ds_off_05.png" group-title="苏州地方台",苏州生活资讯
-http://tylive.kan0512.com/norecord/norecord_csztv5.m3u8
-#EXTINF:-1 tvg-id="20" tvg-name="苏州4k" tvg-logo="http://gitee.com/gzjian/box/raw/master/SZ4K.png" group-title="苏州地方台",苏州4k
-http://liveshowbak2.kan0512.com/ksz-norecord/csztv4k_4k.m3u8
-#EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://live.fanmingming.com/tv/深圳卫视.png" group-title="卫视频道",深圳卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226313/index.m3u8
-#EXTINF:-1 tvg-id="重庆卫视" tvg-name="重庆卫视" tvg-logo="https://live.fanmingming.com/tv/重庆卫视.png" group-title="卫视频道",重庆卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226409/index.m3u8
-#EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://live.fanmingming.com/tv/广东卫视.png" group-title="卫视频道",广东卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226248/index.m3u8
-#EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://live.fanmingming.com/tv/北京卫视.png" group-title="卫视频道",北京卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226450/index.m3u8
-#EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://live.fanmingming.com/tv/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226307/index.m3u8
-#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://live.fanmingming.com/tv/东方卫视.png" group-title="卫视频道",东方卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226345/index.m3u8
-#EXTINF:-1 tvg-id="四川卫视" tvg-name="四川卫视" tvg-logo="https://live.fanmingming.com/tv/四川卫视.png" group-title="卫视频道",四川卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226338/index.m3u8
-#EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://live.fanmingming.com/tv/天津卫视.png" group-title="卫视频道",天津卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226459/index.m3u8
-#EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://live.fanmingming.com/tv/安徽卫视.png" group-title="卫视频道",安徽卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226391/index.m3u8
-#EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://live.fanmingming.com/tv/山东卫视.png" group-title="卫视频道",山东卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226456/index.m3u8
-#EXTINF:-1 tvg-id="广西卫视" tvg-name="广西卫视" tvg-logo="https://live.fanmingming.com/tv/广西卫视.png" group-title="卫视频道",广西卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226549/index.m3u8
-#EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://live.fanmingming.com/tv/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226310/index.m3u8
-#EXTINF:-1 tvg-id="江西卫视" tvg-name="江西卫视" tvg-logo="https://live.fanmingming.com/tv/江西卫视.png" group-title="卫视频道",江西卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226344/index.m3u8
-#EXTINF:-1 tvg-id="河北卫视" tvg-name="河北卫视" tvg-logo="https://live.fanmingming.com/tv/河北卫视.png" group-title="卫视频道",河北卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226406/index.m3u8
-#EXTINF:-1 tvg-id="河南卫视" tvg-name="河南卫视" tvg-logo="https://live.fanmingming.com/tv/河南卫视.png" group-title="卫视频道",河南卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226480/index.m3u8
-#EXTINF:-1 tvg-id="浙江卫视" tvg-name="浙江卫视" tvg-logo="https://live.fanmingming.com/tv/浙江卫视.png" group-title="卫视频道",浙江卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226339/index.m3u8
-#EXTINF:-1 tvg-id="海南卫视" tvg-name="海南卫视" tvg-logo="https://live.fanmingming.com/tv/海南卫视.png" group-title="卫视频道",海南卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226465/index.m3u8
-#EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://live.fanmingming.com/tv/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226477/index.m3u8
-#EXTINF:-1 tvg-id="山西卫视" tvg-name="山西卫视" tvg-logo="https://live.fanmingming.com/tv/山西卫视.png" group-title="卫视频道",山西卫视
-http://[2409:8087:5e01:34::21]:6610/ZTE_CMS/00000001000000060000000000000318/index.m3u8?IAS
-#EXTINF:-1 tvg-id="东南卫视" tvg-name="东南卫视" tvg-logo="https://live.fanmingming.com/tv/东南卫视.png" group-title="卫视频道",东南卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226341/index.m3u8
-#EXTINF:-1 tvg-id="贵州卫视" tvg-name="贵州卫视" tvg-logo="https://live.fanmingming.com/tv/贵州卫视.png" group-title="卫视频道",贵州卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226474/index.m3u8
-#EXTINF:-1 tvg-id="辽宁卫视" tvg-name="辽宁卫视" tvg-logo="https://live.fanmingming.com/tv/辽宁卫视.png" group-title="卫视频道",辽宁卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226546/index.m3u8
-#EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://live.fanmingming.com/tv/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226327/index.m3u8
-#EXTINF:-1 tvg-id="内蒙古卫视" tvg-name="内蒙古卫视" tvg-logo="https://live.fanmingming.com/tv/内蒙古卫视.png" group-title="卫视频道",内蒙古卫视
-http://[2409:8087:5e01:34::20]:6610/ZTE_CMS/00000001000000060000000000000319/index.m3u8?IAS
-#EXTINF:-1 tvg-id="宁夏卫视" tvg-name="宁夏卫视" tvg-logo="https://live.fanmingming.com/tv/宁夏卫视.png" group-title="卫视频道",宁夏卫视
-http://[2409:8087:5e01:34::20]:6610/ZTE_CMS/00000001000000060000000000000309/index.m3u8?IAS
-#EXTINF:-1 tvg-id="陕西卫视" tvg-name="陕西卫视" tvg-logo="https://live.fanmingming.com/tv/陕西卫视.png" group-title="卫视频道",陕西卫视
-http://[2409:8087:5e01:34::22]:6610/ZTE_CMS/00000001000000060000000000000313/index.m3u8?IAS
-#EXTINF:-1 tvg-id="甘肃卫视" tvg-name="甘肃卫视" tvg-logo="https://live.fanmingming.com/tv/甘肃卫视.png" group-title="卫视频道",甘肃卫视
-http://[2409:8087:1a0b:df::4005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225633/index.m3u8
-#EXTINF:-1 tvg-id="吉林卫视" tvg-name="吉林卫视" tvg-logo="https://live.fanmingming.com/tv/吉林卫视.png" group-title="卫视频道",吉林卫视
-http://[2409:8087:1a01:df::7005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226397/index.m3u8
-#EXTINF:-1 tvg-id="云南卫视" tvg-name="云南卫视" tvg-logo="https://live.fanmingming.com/tv/云南卫视.png" group-title="卫视频道",云南卫视
-http://[2409:8087:5e01:34::22]:6610/ZTE_CMS/00000001000000060000000000000305/index.m3u8?IAS
-#EXTINF:-1 tvg-id="三沙卫视" tvg-name="三沙卫视" tvg-logo="https://live.fanmingming.com/tv/三沙卫视.png" group-title="卫视频道",三沙卫视
-http://[2409:8087:5e01:34::21]:6610/ZTE_CMS/08984400000000060000000000000319/index.m3u8?IAS
-#EXTINF:-1 tvg-id="青海卫视" tvg-name="青海卫视" tvg-logo="https://live.fanmingming.com/tv/青海卫视.png" group-title="卫视频道",青海卫视
-http://[2409:8087:1a0b:df::4002]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225628/index.m3u8
-#EXTINF:-1 tvg-id="新疆卫视" tvg-name="新疆卫视" tvg-logo="https://live.fanmingming.com/tv/新疆卫视.png" group-title="卫视频道",新疆卫视
-http://[2409:8087:1a0b:df::4005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225635/index.m3u8
-#EXTINF:-1 tvg-id="西藏卫视" tvg-name="西藏卫视" tvg-logo="https://live.fanmingming.com/tv/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://[2409:8087:5e01:34::23]:6610/ZTE_CMS/00000001000000060000000000000317/index.m3u8?IAS
-#EXTINF:-1 tvg-id="兵团卫视" tvg-name="兵团卫视" tvg-logo="https://live.fanmingming.com/tv/兵团卫视.png" group-title="卫视频道",兵团卫视
-http://[2409:8087:1a0b:df::4020]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226439/index.m3u8
-#EXTINF:-1 tvg-id="延边卫视" tvg-name="延边卫视" tvg-logo="https://live.fanmingming.com/tv/延边卫视.png" group-title="卫视频道",延边卫视
-http://[2409:8087:1a0b:df::4020]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226516/index.m3u8
-#EXTINF:-1 tvg-id="大湾区卫视" tvg-name="大湾区卫视" tvg-logo="https://live.fanmingming.com/tv/大湾区卫视.png" group-title="卫视频道",大湾区卫视
-http://[2409:8087:1a0b:df::4020]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226442/index.m3u8
-#EXTINF:-1 tvg-id="安多卫视" tvg-name="安多卫视" tvg-logo="https://live.fanmingming.com/tv/安多卫视.png" group-title="卫视频道",安多卫视
-http://[2409:8087:1a0b:df::4007]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225659/index.m3u8
-#EXTINF:-1 tvg-id="厦门卫视" tvg-name="厦门卫视" tvg-logo="https://live.fanmingming.com/tv/厦门卫视.png" group-title="卫视频道",厦门卫视
-http://[2409:8087:5e01:34::22]:6610/ZTE_CMS/00000001000000060000000000000193/index.m3u8?IAS
-#EXTINF:-1 tvg-id="康巴卫视" tvg-name="康巴卫视" tvg-logo="https://live.fanmingming.com/tv/康巴卫视.png" group-title="卫视频道",康巴卫视
-http://[2409:8087:1a0b:df::4005]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225660/index.m3u8
-#EXTINF:-1 tvg-id="中国教育1台" tvg-name="中国教育1台" tvg-logo="https://live.fanmingming.com/tv/CETV1.png" group-title="卫视频道",CETV-1
-http://[2409:8087:1a0b:df::4020]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225652/index.m3u8
-#EXTINF:-1 tvg-id="中国教育2台" tvg-name="中国教育2台" tvg-logo="https://live.fanmingming.com/tv/CETV2.png" group-title="卫视频道",CETV-2
-http://[2409:8087:1a0b:df::4013]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226425/index.m3u8
-#EXTINF:-1 tvg-id="中国教育3台" tvg-name="中国教育3台" tvg-logo="https://live.fanmingming.com/tv/CETV3.png" group-title="卫视频道",CETV-3
-http://[2409:8087:7004:20:1000::22]:6610/yinhe/2/ch00000090990000001309/index.m3u8?virtualDomain=yinhe.live_hls.zte.com
-#EXTINF:-1 tvg-id="中国教育4台" tvg-name="中国教育4台" tvg-logo="https://live.fanmingming.com/tv/CETV4.png" group-title="卫视频道",CETV-4
-http://[2409:8087:1a0b:df::4020]:80/ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225783/index.m3u8
+CCTV1,http://sc-zb-dx.sohu.blog:9008/rtp/http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.1:5140,1920x1080,25
+CCTV1,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.34:5140,1920x1080,25
+CCTV1,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.1.18:5140,1920x1080,25
+CCTV1,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.1.151:5140,1920x1080,25
+CCTV1,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.31:5140,1920x1080,25
+CCTV1,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.69:5140,1920x1080,25
+CCTV4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.20:5140,3840x2160,25
+CCTV2,http://sc-zb-dx.sohu.blog:9008/rtp/http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.70:5140,1920x1080,25
+CCTV2,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.2:5140,1920x1080,25
+CCTV2,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.35:5140,1920x1080,25
+CCTV3,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.32:5140,1920x1080,25
+CCTV3,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.3:5140,1920x1080,25
+CCTV4,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.4:5140,1920x1080,25
+CCTV5,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.33:5140,1920x1080,25
+CCTV5,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.30:5140,1920x1080,25
+CCTV5,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.5:5140,1920x1080,25
+CCTV6,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.6:5140,1920x1080,25
+CCTV6,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.33:5140,1920x1080,25
+CCTV6,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.34:5140,1920x1080,25
+CCTV7,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.7:5140,1920x1080,25
+CCTV8,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.8:5140,1920x1080,25
+CCTV8,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.35:5140,1920x1080,25
+CCTV8,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.29:5140,1920x1080,25
+CCTV9,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.32:5140,1920x1080,25
+CCTV9,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.9:5140,1920x1080,25
+CCTV10,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.10:5140,1920x1080,25
+CCTV10,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.31:5140,1920x1080,25
+CCTV11,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.11:5140,1920x1080,25
+CCTV11,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.36:5140,1920x1080,25
+CCTV12,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.12:5140,1920x1080,25
+CCTV13,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.13:5140,1920x1080,25
+CCTV13,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.37:5140,1920x1080,25
+CCTV14,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.14:5140,1920x1080,25
+CCTV15,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.15:5140,1920x1080,25
+CCTV15,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.38:5140,1920x1080,25
+北京卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.111:5140,3840x2160,25
+北京卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.112:5140,3840x2160,50
+东方卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.119:5140,3840x2160,50
+广东卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.114:5140,3840x2160,50
+深圳卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.113:5140,3840x2160,50
+湖南卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.116:5140,3840x2160,50
+山东卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.120:5140,3840x2160,50
+四川卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.115:5140,3840x2160,50
+浙江卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.118:5140,3840x2160,50
+江苏卫视4K,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.117:5140,3840x2160,50
+重庆卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.82:5140,1920x1080,25
+江苏卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.62:5140,1920x1080,25
+浙江卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.63:5140,1920x1080,25
+东方卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.64:5140,1920x1080,25
+深圳卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.66:5140,1920x1080,25
+北京卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.65:5140,1920x1080,25
+山东卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.69:5140,1920x1080,25
+天津卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.68:5140,1920x1080,25
+贵州卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.83:5140,1920x1080,25
+四川卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.60:5140,1920x1080,25
+四川卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.59:5140,1920x1080,25
+云南卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.90:5140,1920x1080,25
+广西卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.89:5140,1920x1080,25
+黑龙江卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.81:5140,1920x1080,25
+安徽卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.85:5140,1920x1080,25
+江西卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.79:5140,1920x1080,25
+湖北卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.84:5140,1920x1080,25
+陕西卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.92:5140,1920x1080,25
+东南卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.80:5140,1920x1080,25
+吉林卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.91:5140,1920x1080,25
+辽宁卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.101:5140,1920x1080,25
+湖南卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.61:5140,1920x1080,25
+广东卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.67:5140,1920x1080,25
+河南卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.88:5140,1920x1080,25
+河北卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.86:5140,1920x1080,25
+宁夏卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.96:5140,1920x1080,25
+甘肃卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.99:5140,1920x1080,25
+新疆卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.98:5140,1920x1080,25
+西藏卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.97:5140,1920x1080,25
+兵团卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.102:5140,1920x1080,25
+康巴卫视,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.78:5140,1920x1080,25
+苏州新闻综合,https://live-auth.51kandianshi.com/szgd/csztv1.m3u8
+苏州社会经济,https://live-auth.51kandianshi.com/szgd/csztv2.m3u8
+苏州文化生活,https://live-auth.51kandianshi.com/szgd/csztv3.m3u8
+苏州生活资讯,https://live-auth.51kandianshi.com/szgd/csztv5.m3u8
+苏州生活资讯,http://121.237.245.90:8000/rtp/239.49.8.116:8000
+苏州生活资讯,http://tylive.kan0512.com/norecord/norecord_csztv5/playlist.m3u8
+苏州生活资讯,http://liveshowbak2.kan0512.com/norecord/norecord_sbs5/playlist.m3u8
+苏州生活资讯,rtmp://csztv.2500sz.com/live/c05
+苏州4K,https://live-auth.51kandianshi.com/szgd/csztv4k_hd.m3u8
+凤凰中文,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.51:5140,1920x1080,25
+凤凰中文,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.52:5140,1920x1080,25
+凤凰资讯,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.49:5140,1920x1080,25
+凤凰资讯,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.50:5140,1920x1080,25
+CCTV1SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.146:5140,576x320,25
+CCTV2SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.147:5140,576x320,25
+CCTV3SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.148:5140,576x320,25
+CCTV4SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.149:5140,576x320,25
+CCTV5SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.150:5140,576x320,25
+CCTV5+SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.162:5140,576x320,25
+CCTV6SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.151:5140,576x320,25
+CCTV7SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.152:5140,576x320,25
+CCTV8SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.153:5140,576x320,25
+CCTV9SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.154:5140,576x320,25
+CCTV10SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.155:5140,576x320,25
+CCTV11SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.156:5140,576x320,25
+CCTV12SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.157:5140,576x320,25
+CCTV13SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.158:5140,576x320,25
+CCTV14SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.159:5140,576x320,25
+CCTV15SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.160:5140,576x320,25
+CCTV17SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.161:5140,576x320,25
+CCTV4KSD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.163:5140,576x320,25
+重庆卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.188:5140,576x320,25
+江苏卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.168:5140,576x320,25
+浙江卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.169:5140,576x320,25
+东方卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.170:5140,576x320,25
+深圳卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.172:5140,576x320,25
+北京卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.171:5140,576x320,25
+山东卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.175:5140,576x320,25
+天津卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.174:5140,576x320,25
+贵州卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.189:5140,576x320,25
+四川卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.165:5140,576x320,25
+云南卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.196:5140,720x576,25
+广西卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.195:5140,576x320,25
+黑龙江卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.187:5140,576x320,25
+安徽卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.191:5140,576x320,25
+山西卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.93:5140,720x576,25
+山西卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.199:5140,576x320,25
+江西卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.185:5140,576x320,25
+湖北卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.190:5140,576x320,25
+旅游卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.100:5140,720x576,25
+旅游卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.206:5140,576x320,25
+陕西卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.198:5140,576x320,25
+东南卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.186:5140,576x320,25
+厦门卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.104:5140,720x576,25
+厦门卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.210:5140,576x320,25
+吉林卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.197:5140,576x320,25
+辽宁卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.207:5140,576x320,25
+内蒙古卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.94:5140,720x576,25
+内蒙古卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.200:5140,576x320,25
+湖南卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.167:5140,576x320,25
+广东卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.173:5140,576x320,25
+河南卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.194:5140,576x320,25
+河北卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.192:5140,576x320,25
+甘肃卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.205:5140,576x320,25
+青海卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.95:5140,720x576,25
+青海卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.201:5140,576x320,25
+三沙卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.105:5140,720x576,25
+三沙卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.211:5140,576x320,25
+康巴卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.184:5140,576x320,25
+安多卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.110:5140,720x576,25
+安多卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.216:5140,576x320,25
+延边卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.0.107:5140,720x576,25
+延边卫视SD,http://sc-zb-dx.sohu.blog:9008/rtp/239.94.2.213:5140,576x320,25
